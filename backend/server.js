@@ -7,14 +7,10 @@ import pkg from 'body-parser';
 const { json } = pkg;
 import cors from 'cors';
 import { createWriteStream, createReadStream, statSync, existsSync, unlinkSync } from 'fs';
-import { join, dirname } from 'path';
+import { join } from 'path';
 import axios from 'axios';
-import { exec } from 'child_process';
 import { v4 as uuidv4 } from 'uuid';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import ytdl from 'ytdl-core';
 
 const ASSEMBLYAI_API_KEY = process.env.ASSEMBLYAI_API_KEY;
 const app = express();
@@ -33,13 +29,27 @@ app.get('/', (req, res) => {
 
 async function downloadAudio(videoUrl, outPath) {
   return new Promise((resolve, reject) => {
-    // yt-dlp will handle extracting the best audio and converting to mp3
-    exec(`yt-dlp -f bestaudio --extract-audio --audio-format mp3 -o "${outPath}" "${videoUrl}"`, (error, stdout, stderr) => {
-      if (error) {
-        reject(new Error(stderr || error.message));
-      } else {
-        resolve();
-      }
+    const stream = ytdl(videoUrl, {
+      quality: 'lowestaudio',
+      filter: 'audioonly',
+    });
+
+    const writeStream = createWriteStream(outPath);
+    stream.pipe(writeStream);
+
+    stream.on('end', () => {
+      console.log('Download finished via ytdl-core.');
+      resolve();
+    });
+
+    stream.on('error', (err) => {
+      console.error('ytdl stream error:', err);
+      reject(new Error('Failed to download audio from YouTube.'));
+    });
+
+    writeStream.on('error', (err) => {
+      console.error('File write stream error:', err);
+      reject(new Error('Failed to save audio file.'));
     });
   });
 }
@@ -74,7 +84,8 @@ app.post('/api/transcribe', async (req, res) => {
   if (!videoUrl) return res.status(400).json({ error: 'Missing videoUrl' });
 
   const tempId = uuidv4();
-  const audioPath = join(__dirname, `${tempId}.mp3`);
+  // Use the /tmp directory for serverless environments
+  const audioPath = join('/tmp', `${tempId}.mp3`);
 
   try {
     console.log('Downloading audio...');
