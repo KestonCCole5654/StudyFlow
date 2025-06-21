@@ -46,7 +46,7 @@ export function FlashcardViewer({ questions, onClose }: FlashcardViewerProps) {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-4">
-          <h2 className="text-xl font-semibold text-white">Flashcard Study</h2>
+          <h2 className="text-xl font-semibold text-white">Study Flashcards</h2>
           <span className="text-sm text-gray-400">
             {currentIndex + 1} of {questions.length}
           </span>
