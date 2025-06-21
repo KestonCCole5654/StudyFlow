@@ -1,0 +1,366 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-200: #bfdbfe;
+  --primary-300: #93c5fd;
+  --primary-400: #60a5fa;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-800: #1e40af;
+  --primary-900: #1e3a8a;
+  --primary-950: #172554;
+
+  --secondary-50: #f0fdf4;
+  --secondary-100: #dcfce7;
+  --secondary-200: #bbf7d0;
+  --secondary-300: #86efac;
+  --secondary-400: #4ade80;
+  --secondary-500: #22c55e;
+  --secondary-600: #16a34a;
+  --secondary-700: #15803d;
+  --secondary-800: #166534;
+  --secondary-900: #14532d;
+  --secondary-950: #052e16;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Onest', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background: #0f0f0f !important;
+  color: #fff !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Custom slider styles */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-track {
+  background: #444;
+  height: 8px;
+  border-radius: 4px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #3b82f6;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: #2563eb;
+  transform: scale(1.1);
+}
+
+.slider::-moz-range-track {
+  background: #444;
+  height: 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+.slider::-moz-range-thumb {
+  background: #3b82f6;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+  background: #2563eb;
+  transform: scale(1.1);
+}
+
+/* Volume slider specific styles */
+.slider[type="range"][min="0"][max="1"]::-webkit-slider-track {
+  background: linear-gradient(to right, #3b82f6 0%, #3b82f6 70%, #e5e7eb 70%, #e5e7eb 100%);
+}
+
+.slider[type="range"][min="0"][max="1"]::-moz-range-track {
+  background: linear-gradient(to right, #3b82f6 0%, #3b82f6 70%, #e5e7eb 70%, #e5e7eb 100%);
+}
+
+/* Progress bar slider specific styles */
+.slider[type="range"][min="0"]::-webkit-slider-track {
+  background: linear-gradient(to right, #3b82f6 0%, #3b82f6 0%, #e5e7eb 0%, #e5e7eb 100%);
+}
+
+.slider[type="range"][min="0"]::-moz-range-track {
+  background: linear-gradient(to right, #3b82f6 0%, #3b82f6 0%, #e5e7eb 0%, #e5e7eb 100%);
+}
+
+@layer base {
+  body {
+    font-family: 'Onest', system-ui, sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .react-calendar {
+    width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    font-family: inherit !important;
+  }
+  
+  .react-calendar__navigation {
+    display: flex;
+    height: 44px;
+    margin-bottom: 1em;
+  }
+  
+  .react-calendar__navigation button {
+    min-width: 44px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #374151;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+  
+  .react-calendar__navigation button:hover {
+    background-color: rgba(79, 70, 229, 0.1);
+    color: #4F46E5;
+  }
+  
+  .react-calendar__navigation button:disabled {
+    background-color: transparent;
+    color: #9CA3AF;
+  }
+  
+  .react-calendar__month-view__weekdays {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: #6B7280;
+    margin-bottom: 0.5rem;
+  }
+  
+  .react-calendar__month-view__weekdays__weekday {
+    padding: 0.5rem;
+  }
+  
+  .react-calendar__month-view__days__day {
+    position: relative;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    margin: 2px;
+    padding: 8px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+  
+  .react-calendar__month-view__days__day:hover {
+    background: rgba(79, 70, 229, 0.1);
+    border-color: rgba(79, 70, 229, 0.3);
+    transform: translateY(-1px);
+  }
+  
+  .react-calendar__tile--active {
+    background: rgba(79, 70, 229, 0.2) !important;
+    border-color: rgba(79, 70, 229, 0.5) !important;
+    color: #4F46E5 !important;
+  }
+  
+  .react-calendar__tile--now {
+    background: rgba(16, 185, 129, 0.1) !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
+    color: #10B981 !important;
+  }
+  
+  .react-calendar__tile--hasActive {
+    background: rgba(79, 70, 229, 0.15) !important;
+    border-color: rgba(79, 70, 229, 0.4) !important;
+  }
+  
+  .react-calendar__month-view__days__day--neighboringMonth {
+    color: #9CA3AF;
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* === Blob Animation Styles (from style.css) === */
+.stack {
+  display: grid;
+  grid-template-areas: 'stack';
+}
+.blobs {
+  display: grid;
+  grid-template-areas: 'stack';
+  position: relative;
+  -webkit-animation: spin infinite 5s linear;
+          animation: spin infinite 5s linear;
+  grid-area: stack;
+}
+.blob--filtered {
+}
+.blob {
+  --border-radius: 115% 140% 145% 110% / 125% 140% 110% 125%;
+  --border-width: 6%;
+  aspect-ratio: 1;
+  display: block;
+  grid-area: stack;
+  background-size: calc(100% + 2 * var(--border-width));
+  background-repeat: no-repeat;
+  background-position: center;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--border-radius, 50%);
+  -webkit-mask-image:
+    linear-gradient(transparent, transparent),
+    linear-gradient(black, white)
+  ;
+          mask-image:
+    linear-gradient(transparent, transparent),
+    linear-gradient(black, white)
+  ;
+  -webkit-mask-clip: padding-box, border-box;
+          mask-clip: padding-box, border-box;
+  -webkit-mask-composite: source-in, xor;
+          mask-composite: intersect;
+  mix-blend-mode: screen;
+  width: 100%;
+  height: 100%;
+  filter: blur(2%);
+}
+.blob:nth-child(1) {
+  background-color: #0074D9;
+  background-image: linear-gradient(#0074D9, #39CCCC, #0074D9);
+  rotate: 30deg;
+  scale: 1.03;
+}
+.blob:nth-child(2) {
+  background-color: #FF4136;
+  background-image: linear-gradient(#FF4136, #FF851B, #FF4136);
+  rotate: 60deg;
+  scale: 0.95;
+}
+.blob:nth-child(3) {
+  background-color: #3D9970;
+  background-image: linear-gradient(#3D9970, #01FF70, #3D9970);
+  rotate: 90deg;
+  scale: 0.97;
+}
+.blob:nth-child(4) {
+  background-color: #B10DC9;
+  background-image: linear-gradient(#B10DC9, #85144B, #B10DC9);
+  rotate: 120deg;
+  scale: 1.02;
+}
+@-webkit-keyframes spin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes spin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+.halo .blob {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+
+/* === FullCalendar Dark Mode Overrides === */
+.fc {
+  background: #181c28 !important;
+  color: #fff !important;
+}
+
+.fc .fc-col-header-cell,
+.fc .fc-timegrid-slot,
+.fc .fc-timegrid-axis,
+.fc .fc-timegrid-slot-label {
+  background: #23263a !important;
+  color: #d1d5db !important;
+  border-color: #2d3148 !important;
+}
+
+.fc .fc-scrollgrid-section-header,
+.fc .fc-toolbar {
+  background: #181c28 !important;
+  color: #fff !important;
+}
+
+.fc .fc-day-today {
+  background: #23263a !important;
+}
+
+.fc .fc-timegrid-slot {
+  border-color: #2d3148 !important;
+}
+
+/* Hide FullCalendar all-day section */
+.fc .fc-timegrid-axis.fc-scrollgrid-shrink,
+.fc .fc-timegrid-all-day,
+.fc .fc-timegrid-all-day-events {
+  display: none !important;
+}
+
+/* Enhanced FullCalendar event styling for better stacking and readability */
+.fc .fc-event {
+  padding: 8px 10px !important;
+  border-radius: 8px !important;
+  font-size: 1em !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  line-height: 1.3 !important;
+  box-shadow: 0 2px 8px 0 #0002;
+  min-height: 44px !important;
+  margin-bottom: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.fc .fc-event-title,
+.fc .fc-event-main {
+  white-space: normal !important;
+  word-break: break-word !important;
+}
