@@ -37,8 +37,8 @@ async function downloadAudio(videoUrl, outPath) {
     const writeStream = createWriteStream(outPath);
     stream.pipe(writeStream);
 
-    stream.on('end', () => {
-      console.log('Download finished via ytdl-core.');
+    writeStream.on('finish', () => {
+      console.log('Download finished and file written to disk.');
       resolve();
     });
 
