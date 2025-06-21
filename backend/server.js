@@ -18,7 +18,7 @@ const __dirname = dirname(__filename);
 
 const ASSEMBLYAI_API_KEY = process.env.ASSEMBLYAI_API_KEY;
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(json());
@@ -109,6 +109,12 @@ app.get('/api/transcribe-status', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Backend listening at http://localhost:${port}`);
-});
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, () => {
+    console.log(`Backend listening at http://localhost:${port}`);
+  });
+}
+
+// For Vercel serverless functions
+export default app;
