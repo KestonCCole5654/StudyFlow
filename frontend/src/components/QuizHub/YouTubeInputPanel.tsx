@@ -3,7 +3,7 @@ import { Button } from '../ui/button';
 import { FlashcardViewer } from './FlashcardViewer';
 import { geminiQuizGenerator } from '../../lib/gemini';
 
-const BACKEND_URL = 'http://localhost:3001';
+const BACKEND_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001';
 
 const YouTubeInputPanel: React.FC = () => {
   const [url, setUrl] = useState('');
